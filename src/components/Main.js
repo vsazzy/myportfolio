@@ -7,9 +7,10 @@ import {
   ExternalLink,
   Menu,
   X,
-  Play
+  Play,
 } from "lucide-react";
 import CircularText from "../animations/CircularText";
+import myimage from "../assets/mypic.png";
 
 const Main = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,8 +54,10 @@ const Main = () => {
       description:
         "The Super App for Your School. We offer seamless communication, streamlined administrative tasks, and comprehensive student data management, empowering educators for efficient and effective school operations.",
       tech: ["React", "Node.js", "MongoDB", "Stripe"],
-      github: "https://play.google.com/store/apps/details?id=com.emds.nxtmate_student",
+      github:
+        "https://play.google.com/store/apps/details?id=com.emds.nxtmate_student",
       live: "https://www.nxtmate.com/",
+      emoji: "👩‍🎓",
     },
     {
       title: "Task Management App",
@@ -63,6 +66,7 @@ const Main = () => {
       tech: ["React", "Firebase", "Material-UI", "Socket.io"],
       github: "#",
       live: "#",
+      emoji: "👩‍🎓",
     },
     {
       title: "Weather Dashboard",
@@ -71,6 +75,7 @@ const Main = () => {
       tech: ["React", "Chart.js", "OpenWeather API", "Tailwind"],
       github: "#",
       live: "#",
+      emoji: "👩‍🎓",
     },
   ];
 
@@ -198,7 +203,7 @@ const Main = () => {
                   <div className="w-60 h-60 bg-gray-800 rounded-full flex items-center justify-center">
                     <img
                       alt="my-pic"
-                      src="https://avatars.githubusercontent.com/u/32240561?s=400&u=57c3b10572a06e0a0ed70ef770454cdecfd48e00&v=4"
+                      src={myimage}
                     />
                   </div>
                 </div>
@@ -211,27 +216,29 @@ const Main = () => {
       {/* About Section */}
       <section id="about" className="py-20 bg-gray-800">
         <div className="container mx-auto px-6">
+          <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+            About Me
+          </h2>
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="text-center z-10">
-                <p className="text-lg text-gray-300 leading-relaxed mb-6">
-                  I'm a passionate full-stack developer with over 3 years of
-                  experience creating digital solutions that make a difference.
-                  I specialize in modern web technologies and love turning
-                  complex problems into simple, beautiful designs.
-                </p>
-                <p className="text-lg text-gray-300 leading-relaxed">
-                  When I'm not coding, you'll find me exploring new
-                  technologies, contributing to open-source projects, or sharing
-                  my knowledge with the developer community.
-                </p>
-              </div>
               <div className="relative">
                 <div className="w-64 h-64 mx-auto bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
                   <div className="w-60 h-60 bg-gray-800 rounded-full flex items-center justify-center">
-                    <span className="text-6xl">👨‍💻</span>
+                    <span className="text-8xl">💻</span>
                   </div>
                 </div>
+              </div>
+              <div className="text-left z-10">
+                <p className="text-lg text-gray-300 leading-relaxed mb-6">
+                  With 3+ years of experience in AI, Cyber Security and Software Engineering. I design, develop, and
+                  deploy cutting-edge software and AI solutions. I’ve led cross-functional teams,
+                  translating business goals into actionable Data & AI
+                  strategies that deliver results. Skilled in Python, Javascript,
+                  and deep learning frameworks, I build scalable,
+                  high-performance systems. If you’re looking for someone to
+                  drive impactful projects, let’s connect!
+                </p>
+              
               </div>
             </div>
           </div>
@@ -268,9 +275,12 @@ const Main = () => {
       {/* Projects Section */}
       <section id="projects" className="py-20 bg-gray-800">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+          <h2 className="p-2 text-4xl font-bold text-center mb-6 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
             Projects
           </h2>
+          <p className="text-lg text-gray-300 leading-relaxed mb-4">
+            My independent & live projects
+          </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <div
@@ -278,7 +288,7 @@ const Main = () => {
                 className="bg-gray-900 rounded-lg overflow-hidden hover:transform hover:scale-105 transition-all duration-300"
               >
                 <div className="h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                  <span className="text-4xl">🚀</span>
+                  <span className="text-6xl">{project.emoji}</span>
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-3">{project.title}</h3>
@@ -313,8 +323,6 @@ const Main = () => {
               </div>
             ))}
           </div>
-      
-           
         </div>
       </section>
 
@@ -351,7 +359,7 @@ const Main = () => {
 
       {/* Footer */}
       <footer className="bg-gray-800 py-6 text-center text-gray-400">
-        <p>&copy; 2025 Yash Verma.</p>
+        <p>&copy; 2025 Yash Verma</p>
       </footer>
     </div>
   );

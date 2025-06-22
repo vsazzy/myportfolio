@@ -15,6 +15,7 @@ const styles = {
     overflow: 'hidden',
     clip: 'rect(0,0,0,0)',
     border: 0,
+    // fontFamily: "monospace"
   },
 }
 
