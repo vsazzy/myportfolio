@@ -7,7 +7,8 @@ import {
   ExternalLink,
   Menu,
   X,
-  Play,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import CircularText from "../animations/CircularText";
 import myimage from "../assets/mypic.png";
@@ -15,6 +16,24 @@ import myimage from "../assets/mypic.png";
 const Main = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [currentProject, setCurrentProject] = useState(0);
+  // Carousel navigation functions
+  const nextProject = () => {
+    setCurrentProject((prev) => (prev + 1) % projects.length);
+  };
+
+  const prevProject = () => {
+    setCurrentProject((prev) => (prev - 1 + projects.length) % projects.length);
+  };
+
+  // Auto-rotate carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextProject();
+    }, 5000); // Change slide every 5 seconds
+
+    return () => clearInterval(interval);
+  }, []);
 
   // Smooth scroll function
   const scrollToSection = (sectionId) => {
@@ -55,25 +74,25 @@ const Main = () => {
         "The Super App for Your School. We offer seamless communication, streamlined administrative tasks, and comprehensive student data management, empowering educators for efficient and effective school operations.",
       tech: ["React", "Node.js", "MongoDB", "Stripe"],
       github:
-        "https://play.google.com/store/apps/details?id=com.emds.nxtmate_student",
+        "https://www.nxtmate.com/",
       live: "https://www.nxtmate.com/",
       emoji: "👩‍🎓",
     },
     {
-      title: "Task Management App",
+      title: "PainMapper App",
       description:
-        "Collaborative project management tool with real-time updates, drag-and-drop functionality, and team collaboration features.",
-      tech: ["React", "Firebase", "Material-UI", "Socket.io"],
-      github: "#",
+        "PainMapper is a powerful, cross-platform app designed for both Android and iOS, built exclusively for healthcare professionals. Empowering doctors to visually map, track, and log pain points across the patient's body with ease, PainMapper transforms the way pain is documented and understood",
+      tech: ["React-Native", "Expo", "MongoDB", "Reanimated"],
+      github: "https://github.com/vsazzy/painMapper",
       live: "#",
       emoji: "👩‍🎓",
     },
     {
-      title: "Weather Dashboard",
+      title: "search-OS",
       description:
-        "Interactive weather application with location-based forecasts, historical data visualization, and responsive design.",
+        "Open Source Intelligence (OSINT) Framework for scanning IP Address, Emails, Websites, Organizations.",
       tech: ["React", "Chart.js", "OpenWeather API", "Tailwind"],
-      github: "#",
+      github: "https://github.com/vsazzy/search-os",
       live: "#",
       emoji: "👩‍🎓",
     },
@@ -201,10 +220,7 @@ const Main = () => {
               <div className="relative">
                 <div className="w-64 h-64 mx-auto bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
                   <div className="w-60 h-60 bg-gray-800 rounded-full flex items-center justify-center">
-                    <img
-                      alt="my-pic"
-                      src={myimage}
-                    />
+                    <img alt="my-pic" src={myimage} />
                   </div>
                 </div>
               </div>
@@ -230,15 +246,15 @@ const Main = () => {
               </div>
               <div className="text-left z-10">
                 <p className="text-lg text-gray-300 leading-relaxed mb-6">
-                  With 3+ years of experience in AI, Cyber Security and Software Engineering. I design, develop, and
-                  deploy cutting-edge software and AI solutions. I’ve led cross-functional teams,
+                  With 3+ years of experience in AI, Cyber Security and Software
+                  Engineering. I design, develop, and deploy cutting-edge
+                  software and AI solutions. I’ve led cross-functional teams,
                   translating business goals into actionable Data & AI
-                  strategies that deliver results. Skilled in Python, Javascript,
-                  and deep learning frameworks, I build scalable,
+                  strategies that deliver results. Skilled in Python,
+                  Javascript, and deep learning frameworks, I build scalable,
                   high-performance systems. If you’re looking for someone to
                   drive impactful projects, let’s connect!
                 </p>
-              
               </div>
             </div>
           </div>
@@ -275,53 +291,98 @@ const Main = () => {
       {/* Projects Section */}
       <section id="projects" className="py-20 bg-gray-800">
         <div className="container mx-auto px-6">
-          <h2 className="p-2 text-4xl font-bold text-center mb-6 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+          <h2 className="text-4xl py-3 font-bold text-center mb-12 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
             Projects
           </h2>
-          <p className="text-lg text-gray-300 leading-relaxed mb-4">
-            My independent & live projects
-          </p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
+
+          {/* Carousel Container */}
+          <div className="relative max-w-2xl mx-auto">
+            <div className="overflow-hidden rounded-lg">
               <div
-                key={index}
-                className="bg-gray-900 rounded-lg overflow-hidden hover:transform hover:scale-105 transition-all duration-300"
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentProject * 100}%)` }}
               >
-                <div className="h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                  <span className="text-6xl">{project.emoji}</span>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-3">{project.title}</h3>
-                  <p className="text-gray-300 mb-4">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className="px-3 py-1 bg-blue-900 text-blue-200 text-sm rounded-full"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                {projects.map((project, index) => ( 
+                  <div key={index} className="w-full flex-shrink-0">
+                    <div className="bg-gray-900 rounded-lg overflow-hidden mx-4">
+                      <div className="h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                        <span className="text-4xl">🚀</span>
+                      </div>
+                      <div className="p-8">
+                        <h3 className="text-2xl font-bold mb-4">
+                          {project.title}
+                        </h3>
+                        <p className="text-gray-300 mb-6 text-lg leading-relaxed">
+                          {project.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2 mb-6">
+                          {project.tech.map((tech, techIndex) => (
+                            <span
+                              key={techIndex}
+                              className="px-4 py-2 bg-blue-900 text-blue-200 text-sm rounded-full"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                        <div className="flex space-x-6">
+                          <a
+                            href={project.github}
+                            className="flex items-center space-x-2 text-gray-300 hover:text-blue-400 transition-colors text-lg"
+                          target="_blank"
+                          rel="noreferrer"
+                          >
+                            <ExternalLink size={24} />
+                            <span>Take me there!</span>
+                          </a>
+                          {/* <a
+                            href={project.live}
+                            className="flex items-center space-x-2 text-gray-300 hover:text-blue-400 transition-colors text-lg"
+                          >
+                            <ExternalLink size={24} />
+                            <span>Live Demo</span>
+                          </a> */}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex space-x-4">
-                    <a
-                      href={project.github}
-                      className="flex items-center space-x-2 text-gray-300 hover:text-blue-400 transition-colors"
-                    >
-                      <Play size={20} />
-                      <span>Demo</span>
-                    </a>
-                    <a
-                      href={project.live}
-                      className="flex items-center space-x-2 text-gray-300 hover:text-blue-400 transition-colors"
-                    >
-                      <ExternalLink size={20} />
-                      <span>GitHub</span>
-                    </a>
-                  </div>
-                </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevProject}
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-900/80 hover:bg-gray-900 text-white p-3 rounded-full transition-all duration-300 hover:scale-110"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <button
+              onClick={nextProject}
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-900/80 hover:bg-gray-900 text-white p-3 rounded-full transition-all duration-300 hover:scale-110"
+            >
+              <ChevronRight size={24} />
+            </button>
+
+            {/* Dots Indicator */}
+            {/* <div className="flex justify-center mt-8 space-x-2">
+              {projects.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentProject(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentProject
+                      ? "bg-blue-400 scale-125"
+                      : "bg-gray-600 hover:bg-gray-500"
+                  }`}
+                />
+              ))}
+            </div> */}
+
+            {/* Project Counter */}
+            {/* <div className="text-center mt-4 text-gray-400">
+              {currentProject + 1} / {projects.length}
+            </div> */}
           </div>
         </div>
       </section>
