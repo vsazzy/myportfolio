@@ -9,9 +9,11 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
+  Coffee,
 } from "lucide-react";
 import CircularText from "../animations/CircularText";
 import myimage from "../assets/mypic.png";
+import SkillsSection from "./SkillsSection";
 
 const Main = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -183,11 +185,11 @@ const Main = () => {
                     speed={200}
                   />
                 </h1>
-                <p className="text-xl md:text-xl text-gray-300 mb-8">
+                <p className="text-xl md:text-2xl text-gray-300 mb-8">
                   ☕️ 💻 🎸 ❤️ 🧠
                 </p>
                 <p className="text-xl md:text-xl text-gray-300 mb-8">
-                  Artificial Intelligence | Software Engineering | Cyber
+                  Data science | AI/ML | Cyber
                   Security
                 </p>
                 <div className="flex justify-center space-x-6 mb-12">
@@ -246,8 +248,7 @@ const Main = () => {
               </div>
               <div className="text-left z-10">
                 <p className="text-lg text-gray-300 leading-relaxed mb-6">
-                  With 3+ years of experience in AI, Cyber Security and Software
-                  Engineering. I design, develop, and deploy cutting-edge
+                  With 3+ years of experience in AI, Cyber Security and Data Science, I design, develop, and deploy cutting-edge
                   software and AI solutions. I’ve led cross-functional teams,
                   translating business goals into actionable Data & AI
                   strategies that deliver results. Skilled in Python,
@@ -261,32 +262,10 @@ const Main = () => {
         </div>
       </section>
 
+
+        <SkillsSection/>
       {/* Skills Section */}
-      <section id="skills" className="py-20">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-            Skills
-          </h2>
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8">
-              {skills.map((skill, index) => (
-                <div key={index} className="bg-gray-800 p-6 rounded-lg">
-                  <div className="flex justify-between mb-2">
-                    <span className="font-semibold">{skill.name}</span>
-                    <span className="text-blue-400">{skill.level}%</span>
-                  </div>
-                  <div className="w-full bg-gray-700 rounded-full h-2">
-                    <div
-                      className="bg-gradient-to-r from-blue-400 to-purple-500 h-2 rounded-full transition-all duration-1000"
-                      style={{ width: `${skill.level}%` }}
-                    ></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+    
 
       {/* Projects Section */}
       <section id="projects" className="py-20 bg-gray-800">
@@ -391,18 +370,20 @@ const Main = () => {
       <section id="contact" className="py-20">
         <div className="container mx-auto px-6">
           <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-            Let's Connect
+            Contact
           </h2>
           <div className="max-w-2xl mx-auto text-center">
             <p className="text-lg text-gray-300 mb-8">
               I'm always interested in new opportunities and exciting projects.
               Let's discuss how we can work together!
             </p>
+            <div className="space-y-12">
+              </div>
             <div className="flex justify-center space-x-8">
               <a
                 href="mailto:sendamailtoyash@gmail.com"
-                className="flex items-center space-x-3 bg-gray-800 px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors"
-              >
+                className="flex items-center space-x-3 bg-blue-600 px-6 py-3 rounded-lg hover:bg-blue-500 transition-colors"
+             >
                 <Mail size={24} />
                 <span>Email Me</span>
               </a>
@@ -413,10 +394,20 @@ const Main = () => {
                 <Linkedin size={24} />
                 <span>LinkedIn</span>
               </a>
+               <a
+                href="https://share.google/AkWHZbr46Ndxnb7YH"
+                className="flex items-center space-x-3 bg-blue-600 px-6 py-3 rounded-lg hover:bg-blue-500 transition-colors"
+              >
+                <Coffee size={24} />
+                <span>Coffee</span>
+              </a>
             </div>
+            
           </div>
         </div>
       </section>
+
+     
 
       {/* Footer */}
       <footer className="bg-gray-800 py-6 text-center text-gray-400">
