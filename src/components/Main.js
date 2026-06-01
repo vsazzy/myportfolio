@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
+  ArrowRight,
   ChevronDown,
   Github,
   Linkedin,
@@ -7,35 +8,57 @@ import {
   ExternalLink,
   Menu,
   X,
-  ChevronLeft,
-  ChevronRight,
   Coffee,
+  Sparkles,
+  Users,
+  Dumbbell,
+  CircleDot,
 } from "lucide-react";
 import CircularText from "../animations/CircularText";
 import myimage from "../assets/mypic.png";
 import SkillsSection from "./SkillsSection";
 
+const navItems = [
+  "home",
+  "about",
+  "skills",
+  "projects",
+  "leadership",
+  "community",
+  "contact",
+];
+
+const projects = [
+  {
+    title: "Local SDK RAG Assistant",
+    description:
+      "A private local RAG assistant for chatting with hardware SDK manuals, API references, code examples, and troubleshooting guides using a local LLM.",
+    tech: ["Python", "Streamlit", "LangChain", "Ollama", "ChromaDB"],
+    github:
+      "https://github.com/vsazzy/Agentic-Technical-Documentation-Assistant",
+    live: "#",
+  },
+  {
+    title: "JudgeMe AI",
+    description:
+      "An AI-powered app that roasts, analyzes, and improves your bio, resume, or profile using persona-based prompt engineering for zero-shot personality analysis.",
+    tech: ["AI", "Prompt Engineering", "Streamlit", "Product Design"],
+    github: "https://judgemeai.streamlit.app/",
+    live: "https://judgemeai.streamlit.app/",
+  },
+  {
+    title: "nxtMate",
+    description:
+      "A school super app for communication, administration, and student data workflows that helps educators operate with less friction.",
+    tech: ["React", "Node.js", "MongoDB", "SaaS"],
+    github: "https://www.nxtmate.com/",
+    live: "https://www.nxtmate.com/",
+  },
+];
+
 const Main = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const [currentProject, setCurrentProject] = useState(0);
-  // Carousel navigation functions
-  const nextProject = () => {
-    setCurrentProject((prev) => (prev + 1) % projects.length);
-  };
-
-  const prevProject = () => {
-    setCurrentProject((prev) => (prev - 1 + projects.length) % projects.length);
-  };
-
-  // Auto-rotate carousel
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextProject();
-    }, 5000); // Change slide every 5 seconds
-
-    return () => clearInterval(interval);
-  }, []);
 
   // Smooth scroll function
   const scrollToSection = (sectionId) => {
@@ -47,10 +70,9 @@ const Main = () => {
   // Track active section on scroll
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "about", "skills", "projects", "contact"];
       const scrollPosition = window.scrollY + 100;
 
-      for (const section of sections) {
+      for (const section of navItems) {
         const element = document.getElementById(section);
         if (element) {
           const { offsetTop, offsetHeight } = element;
@@ -69,81 +91,34 @@ const Main = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const projects = [
-    {
-      title: "nxtMate",
-      description:
-        "The Super App for Your School. We offer seamless communication, streamlined administrative tasks, and comprehensive student data management, empowering educators for efficient and effective school operations.",
-      tech: ["React", "Node.js", "MongoDB", "Stripe"],
-      github:
-        "https://www.nxtmate.com/",
-      live: "https://www.nxtmate.com/",
-      emoji: "👩‍🎓",
-    },
-    {
-      title: "PainMapper App",
-      description:
-        "PainMapper is a powerful, cross-platform app designed for both Android and iOS, built exclusively for healthcare professionals. Empowering doctors to visually map, track, and log pain points across the patient's body with ease, PainMapper transforms the way pain is documented and understood",
-      tech: ["React-Native", "Expo", "MongoDB", "Reanimated"],
-      github: "https://github.com/vsazzy/painMapper",
-      live: "#",
-      emoji: "👩‍🎓",
-    },
-    {
-      title: "search-OS",
-      description:
-        "Open Source Intelligence (OSINT) Framework for scanning IP Address, Emails, Websites, Organizations.",
-      tech: ["React", "Chart.js", "OpenWeather API", "Tailwind"],
-      github: "https://github.com/vsazzy/search-os",
-      live: "#",
-      emoji: "👩‍🎓",
-    },
-  ];
-
-  const skills = [
-    { name: "JavaScript", level: 90 },
-    { name: "React", level: 85 },
-    { name: "Node.js", level: 80 },
-    { name: "Python", level: 75 },
-    { name: "MongoDB", level: 70 },
-    { name: "CSS/Tailwind", level: 85 },
-  ];
-
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="portfolio-shell min-h-screen">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-gray-900/95 backdrop-blur-sm z-50 border-b border-gray-800">
-        <div className="container mx-auto px-6 py-4">
+      <nav className="fixed top-0 w-full z-50 nav-surface">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 py-4">
           <div className="flex justify-between items-center">
-            <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-              <img
-                src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif"
-                width="35px"
-                alt="Hi! wave"
-              ></img>
+            <div className="brand-mark" aria-label="Yash Verma portfolio">
+              YV
             </div>
 
             {/* Desktop Menu */}
-            <div className="hidden md:flex space-x-8">
-              {["home", "about", "skills", "projects", "contact"].map(
-                (item) => (
-                  <button
-                    key={item}
-                    onClick={() => scrollToSection(item)}
-                    className={`capitalize hover:text-blue-400 transition-colors ${
-                      activeSection === item ? "text-blue-400" : "text-gray-300"
-                    }`}
-                  >
-                    {item}
-                  </button>
-                )
-              )}
+            <div className="desktop-nav">
+              {navItems.map((item) => (
+                <button
+                  key={item}
+                  onClick={() => scrollToSection(item)}
+                  className={`nav-link ${activeSection === item ? "is-active" : ""}`}
+                >
+                  {item}
+                </button>
+              ))}
             </div>
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden"
+              className="menu-toggle icon-button"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle navigation menu"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -151,18 +126,16 @@ const Main = () => {
 
           {/* Mobile Menu */}
           {isMenuOpen && (
-            <div className="md:hidden mt-4 pb-4">
-              {["home", "about", "skills", "projects", "contact"].map(
-                (item) => (
-                  <button
-                    key={item}
-                    onClick={() => scrollToSection(item)}
-                    className="block w-full text-left py-2 capitalize hover:text-blue-400 transition-colors"
-                  >
-                    {item}
-                  </button>
-                )
-              )}
+            <div className="mobile-menu mt-4">
+              {navItems.map((item) => (
+                <button
+                  key={item}
+                  onClick={() => scrollToSection(item)}
+                  className={`mobile-link ${activeSection === item ? "is-active" : ""}`}
+                >
+                  {item}
+                </button>
+              ))}
             </div>
           )}
         </div>
@@ -171,247 +144,298 @@ const Main = () => {
       {/* Hero Section */}
       <section
         id="home"
-        className="min-h-screen flex items-center justify-center relative"
+        className="hero-section min-h-screen flex items-center relative overflow-hidden"
       >
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="text-center z-10">
-                <h1 className="text-5xl md:text-6xl font-bold mb-6">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 w-full">
+          <div className="hero-grid grid lg:grid-cols-[1.08fr_0.92fr] gap-12 items-center">
+            <div className="hero-copy z-10">
+              <div className="eyebrow">
+                <Sparkles size={16} />
+                Data science, AI/ML, and security
+              </div>
+              <h1 className="hero-title">
+                <span className="block text-balance">
                   <CircularText
                     text="Hi, I'm Yash"
                     animateOn="view"
                     revealDirection="center"
                     speed={200}
                   />
-                </h1>
-                <p className="text-xl md:text-2xl text-gray-300 mb-8">
-                  ☕️ 💻 🎸 ❤️ 🧠
-                </p>
-                <p className="text-xl md:text-xl text-gray-300 mb-8">
-                  Data science | AI/ML | Cyber
-                  Security
-                </p>
-                <div className="flex justify-center space-x-6 mb-12">
-                  <a
-                    href="https://github.com/vsazzy"
-                    className="hover:text-blue-400 transition-colors"
-                  >
-                    <Github size={28} />
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/yash-verma7"
-                    className="hover:text-blue-400 transition-colors"
-                  >
-                    <Linkedin size={28} />
-                  </a>
-                  <a
-                    href="mailto:sendamailtoyash@gmail.com"
-                    className="hover:text-blue-400 transition-colors"
-                  >
-                    <Mail size={28} />
-                  </a>
-                </div>
+                </span>
+              </h1>
+              <p className="hero-lede">
+                I build practical AI products, security-minded tools, and data
+                systems that turn fuzzy ideas into useful software.
+              </p>
+              <div className="hero-actions">
                 <button
-                  onClick={() => scrollToSection("about")}
-                  className="animate-bounce"
+                  onClick={() => scrollToSection("projects")}
+                  className="primary-button"
                 >
-                  <ChevronDown size={32} className="text-blue-400" />
+                  View projects
+                  <ArrowRight size={18} />
                 </button>
+                <a
+                  href={`${process.env.PUBLIC_URL}/resume.pdf`}
+                  className="secondary-button"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Download resume
+                </a>
               </div>
-              <div className="relative">
-                <div className="w-64 h-64 mx-auto bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
-                  <div className="w-60 h-60 bg-gray-800 rounded-full flex items-center justify-center">
-                    <img alt="my-pic" src={myimage} />
-                  </div>
-                </div>
+              <div className="social-row">
+                <a
+                  href="https://github.com/vsazzy"
+                  className="social-link"
+                  aria-label="GitHub"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Github size={22} />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/yash-verma7"
+                  className="social-link"
+                  aria-label="LinkedIn"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Linkedin size={22} />
+                </a>
+                <a
+                  href="mailto:sendamailtoyash@gmail.com"
+                  className="social-link"
+                  aria-label="Email"
+                >
+                  <Mail size={22} />
+                </a>
               </div>
             </div>
+
+            <div className="hero-visual">
+              <div className="portrait-card">
+                <img alt="Yash Verma" src={myimage} />
+              </div>
+              <div className="hero-stat stat-top">
+                <span>3+ yrs</span>
+                <p>AI, security, and data work</p>
+              </div>
+              <div className="hero-stat stat-bottom">
+                <span>Builder</span>
+                <p>From concept to shipped product</p>
+              </div>
+            </div>
+
+            <button
+              onClick={() => scrollToSection("about")}
+              className="scroll-cue"
+              aria-label="Scroll to about section"
+            >
+              <ChevronDown size={28} />
+            </button>
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 bg-gray-800">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-            About Me
-          </h2>
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="relative">
-                <div className="w-64 h-64 mx-auto bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
-                  <div className="w-60 h-60 bg-gray-800 rounded-full flex items-center justify-center">
-                    <span className="text-8xl">💻</span>
-                  </div>
-                </div>
+      <section id="about" className="section-band">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="section-heading">
+            <p className="eyebrow">About</p>
+            <h2>Focused on systems that feel clear, capable, and useful.</h2>
+          </div>
+          <div className="about-grid">
+            <div className="about-panel">
+              <p>
+                With 3+ years of experience in AI, cyber security, and data
+                science, I design, develop, and deploy software and AI
+                solutions that connect technical depth with product outcomes.
+              </p>
+              <p>
+                I have led cross-functional teams, translated business goals
+                into actionable data and AI strategies, and built scalable
+                systems with Python, JavaScript, and deep learning frameworks.
+              </p>
+            </div>
+            <div className="focus-list">
+              <div>
+                <span>01</span>
+                <h3>AI product thinking</h3>
+                <p>Prompt engineering, ML workflows, and applied automation.</p>
               </div>
-              <div className="text-left z-10">
-                <p className="text-lg text-gray-300 leading-relaxed mb-6">
-                  With 3+ years of experience in AI, Cyber Security and Data Science, I design, develop, and deploy cutting-edge
-                  software and AI solutions. I’ve led cross-functional teams,
-                  translating business goals into actionable Data & AI
-                  strategies that deliver results. Skilled in Python,
-                  Javascript, and deep learning frameworks, I build scalable,
-                  high-performance systems. If you’re looking for someone to
-                  drive impactful projects, let’s connect!
-                </p>
+              <div>
+                <span>02</span>
+                <h3>Security awareness</h3>
+                <p>OSINT tooling and cyber security-informed architecture.</p>
+              </div>
+              <div>
+                <span>03</span>
+                <h3>Data storytelling</h3>
+                <p>Analysis and interfaces that make decisions easier.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-
-        <SkillsSection/>
-      {/* Skills Section */}
-    
+      <SkillsSection />
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 bg-gray-800">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl py-3 font-bold text-center mb-12 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-            Projects
-          </h2>
+      <section id="projects" className="section-band projects-section">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="section-heading">
+            <p className="eyebrow">Selected work</p>
+            <h2>Projects with a practical spine and polished surface.</h2>
+          </div>
 
-          {/* Carousel Container */}
-          <div className="relative max-w-2xl mx-auto">
-            <div className="overflow-hidden rounded-lg">
-              <div
-                className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${currentProject * 100}%)` }}
-              >
-                {projects.map((project, index) => ( 
-                  <div key={index} className="w-full flex-shrink-0">
-                    <div className="bg-gray-900 rounded-lg overflow-hidden mx-4">
-                      <div className="h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                        <span className="text-4xl">🚀</span>
-                      </div>
-                      <div className="p-8">
-                        <h3 className="text-2xl font-bold mb-4">
-                          {project.title}
-                        </h3>
-                        <p className="text-gray-300 mb-6 text-lg leading-relaxed">
-                          {project.description}
-                        </p>
-                        <div className="flex flex-wrap gap-2 mb-6">
-                          {project.tech.map((tech, techIndex) => (
-                            <span
-                              key={techIndex}
-                              className="px-4 py-2 bg-blue-900 text-blue-200 text-sm rounded-full"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                        <div className="flex space-x-6">
-                          <a
-                            href={project.github}
-                            className="flex items-center space-x-2 text-gray-300 hover:text-blue-400 transition-colors text-lg"
-                          target="_blank"
-                          rel="noreferrer"
-                          >
-                            <ExternalLink size={24} />
-                            <span>Take me there!</span>
-                          </a>
-                          {/* <a
-                            href={project.live}
-                            className="flex items-center space-x-2 text-gray-300 hover:text-blue-400 transition-colors text-lg"
-                          >
-                            <ExternalLink size={24} />
-                            <span>Live Demo</span>
-                          </a> */}
-                        </div>
-                      </div>
-                    </div>
+          <div className="projects-grid">
+            {projects.map((project, index) => (
+              <article className="project-card" key={project.title}>
+                <div className="project-index">
+                  {String(index + 1).padStart(2, "0")}
+                </div>
+                <div className="project-body">
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                  <div className="badge-row">
+                    {project.tech.map((tech) => (
+                      <span key={tech} className="tech-badge">
+                        {tech}
+                      </span>
+                    ))}
                   </div>
-                ))}
+                </div>
+                <div className="project-footer">
+                  <a
+                    href={project.github}
+                    className="text-link"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Take me there
+                    <ExternalLink size={18} />
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Leadership Section */}
+      <section id="leadership" className="section-band leadership-section">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="section-heading">
+            <p className="eyebrow">Leadership</p>
+            <h2>Campus roles rooted in service, trust, and execution.</h2>
+          </div>
+          <div className="leadership-grid">
+            <article className="experience-card featured-experience">
+              <div className="experience-icon">
+                <Users size={24} />
               </div>
-            </div>
+              <div>
+                <p className="experience-kicker">University at Buffalo</p>
+                <h3>Graduate Student Assistant</h3>
+                <p>
+                  Supported graduate student operations at UB with a focus on
+                  reliability, communication, and helping campus workflows run
+                  smoothly.
+                </p>
+              </div>
+            </article>
+            <article className="experience-card">
+              <div className="experience-icon">
+                <Sparkles size={24} />
+              </div>
+              <div>
+                <p className="experience-kicker">UB CSE GSA</p>
+                <h3>Board Member</h3>
+                <p>
+                  Serve as a board member for the Computer Science and
+                  Engineering Graduate Student Association, contributing to
+                  student programming and community support.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
 
-            {/* Navigation Arrows */}
-            <button
-              onClick={prevProject}
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-900/80 hover:bg-gray-900 text-white p-3 rounded-full transition-all duration-300 hover:scale-110"
-            >
-              <ChevronLeft size={24} />
-            </button>
-            <button
-              onClick={nextProject}
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-900/80 hover:bg-gray-900 text-white p-3 rounded-full transition-all duration-300 hover:scale-110"
-            >
-              <ChevronRight size={24} />
-            </button>
-
-            {/* Dots Indicator */}
-            {/* <div className="flex justify-center mt-8 space-x-2">
-              {projects.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentProject(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentProject
-                      ? "bg-blue-400 scale-125"
-                      : "bg-gray-600 hover:bg-gray-500"
-                  }`}
-                />
-              ))}
-            </div> */}
-
-            {/* Project Counter */}
-            {/* <div className="text-center mt-4 text-gray-400">
-              {currentProject + 1} / {projects.length}
-            </div> */}
+      {/* Community Section */}
+      <section id="community" className="section-band community-section">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="section-heading">
+            <p className="eyebrow">Community</p>
+            <h2>Outside the code, I stay active and connected on campus.</h2>
+          </div>
+          <div className="community-grid">
+            <article className="community-card">
+              <div className="experience-icon">
+                <Dumbbell size={24} />
+              </div>
+              <p className="experience-kicker">Membership</p>
+              <h3>UB Boxing Club</h3>
+              <p>
+                Training with a campus community that values discipline,
+                consistency, and resilience.
+              </p>
+            </article>
+            <article className="community-card">
+              <div className="experience-icon">
+                <CircleDot size={24} />
+              </div>
+              <p className="experience-kicker">Membership</p>
+              <h3>UB Table Tennis Club</h3>
+              <p>
+                Playing and practicing with students through a fast, tactical,
+                and social club environment.
+              </p>
+            </article>
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-            Contact
-          </h2>
-          <div className="max-w-2xl mx-auto text-center">
-            <p className="text-lg text-gray-300 mb-8">
-              I'm always interested in new opportunities and exciting projects.
-              Let's discuss how we can work together!
-            </p>
-            <div className="space-y-12">
-              </div>
-            <div className="flex justify-center space-x-8">
-              <a
-                href="mailto:sendamailtoyash@gmail.com"
-                className="flex items-center space-x-3 bg-blue-600 px-6 py-3 rounded-lg hover:bg-blue-500 transition-colors"
-             >
-                <Mail size={24} />
-                <span>Email Me</span>
-              </a>
-              <a
-                href="https://www.linkedin.com/in/yash-verma7/"
-                className="flex items-center space-x-3 bg-blue-600 px-6 py-3 rounded-lg hover:bg-blue-500 transition-colors"
-              >
-                <Linkedin size={24} />
-                <span>LinkedIn</span>
-              </a>
-               <a
-                href="https://share.google/AkWHZbr46Ndxnb7YH"
-                className="flex items-center space-x-3 bg-blue-600 px-6 py-3 rounded-lg hover:bg-blue-500 transition-colors"
-              >
-                <Coffee size={24} />
-                <span>Coffee</span>
-              </a>
-            </div>
-            
+      <section id="contact" className="contact-section">
+        <div className="mx-auto max-w-5xl px-5 sm:px-8 text-center">
+          <p className="eyebrow justify-center">Contact</p>
+          <h2>Have a sharp problem or ambitious idea?</h2>
+          <p>
+            I am always interested in new opportunities and projects where AI,
+            data, and thoughtful engineering can make the work feel simpler.
+          </p>
+          <div className="contact-actions">
+            <a href="mailto:sendamailtoyash@gmail.com" className="primary-button">
+              <Mail size={20} />
+              Email Me
+            </a>
+            <a
+              href="https://www.linkedin.com/in/yash-verma7/"
+              className="secondary-button"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Linkedin size={20} />
+              LinkedIn
+            </a>
+            <a
+              href="https://share.google/RviNNV8iV5wRD0Tta"
+              className="secondary-button"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Coffee size={20} />
+              Coffee
+            </a>
           </div>
         </div>
       </section>
 
-     
-
       {/* Footer */}
-      <footer className="bg-gray-800 py-6 text-center text-gray-400">
-        <p>&copy; 2025 Yash Verma</p>
+      <footer className="site-footer">
+        <p>&copy; 2026 Yash Verma</p>
       </footer>
     </div>
   );

@@ -11,7 +11,7 @@ export default function SkillsSection() {
       icon: Brain,
       skills: [
         { name: 'Machine Learning', level: 85 },
-        { name: 'TensorFlow', level: 75 },
+        { name: 'PyTorch', level: 75 },
         { name: 'Computer Vision', level: 70 },
         { name: 'Neural Networks', level: 80 }
       ]
@@ -57,18 +57,18 @@ export default function SkillsSection() {
   };
 
   return (
-    <section id="skills" className="min-h-screen bg-gray-900 py-20 px-8">
-      <div className="max-w-6xl mx-auto">
+    <section id="skills" className="skills-section">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-6xl font-bold text-white mb-4">Skills</h1>
-          <p className="text-xl text-gray-400">My technical & other skills</p>
+        <div className="section-heading">
+          <p className="eyebrow">Skills</p>
+          <h2>Technical depth across the product stack.</h2>
         </div>
 
         {/* Skills Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="skills-grid">
           {/* Left Column - Categories */}
-          <div className="space-y-6">
+          <div className="skill-category-list">
             {categories.map((category) => {
               const Icon = category.icon;
               const isExpanded = expandedCategory === category.id;
@@ -77,21 +77,30 @@ export default function SkillsSection() {
                 <div
                   key={category.id}
                   onClick={() => toggleCategory(category.id)}
-                  className="bg-gray-800 rounded-2xl p-6 cursor-pointer hover:shadow-xl hover:shadow-indigo-500/10 transition-all"
+                  className={`skill-category-card ${isExpanded ? 'is-active' : ''}`}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      toggleCategory(category.id);
+                    }
+                  }}
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-indigo-600/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <Icon className="w-6 h-6 text-indigo-400" strokeWidth={2.5} />
+                  <div className="skill-category-inner">
+                    <div className="skill-category-title">
+                      <div className="skill-icon">
+                        <Icon strokeWidth={2.25} />
                       </div>
                       <div>
-                        <h3 className="text-2xl font-bold text-white">{category.title}</h3>
+                        <h3>{category.title}</h3>
+                        <p>{category.skills.length} focus areas</p>
                       </div>
                     </div>
                     {isExpanded ? (
-                      <ChevronUp className="w-6 h-6 text-indigo-400" />
+                      <ChevronUp className="skill-chevron" />
                     ) : (
-                      <ChevronDown className="w-6 h-6 text-indigo-400" />
+                      <ChevronDown className="skill-chevron" />
                     )}
                   </div>
                 </div>
@@ -100,33 +109,33 @@ export default function SkillsSection() {
           </div>
 
           {/* Right Column - Skills Detail */}
-          <div className="bg-gray-800 rounded-2xl p-8">
+          <div className="skills-detail-card">
             {expandedCategory ? (
-              <div className="space-y-8">
+              <div className="skill-bars">
                 {categories.find(c => c.id === expandedCategory)?.skills.length > 0 ? (
                   categories.find(c => c.id === expandedCategory).skills.map((skill) => (
-                    <div key={skill.name}>
-                      <div className="flex justify-between mb-3">
-                        <span className="text-xl font-semibold text-white">{skill.name}</span>
-                        <span className="text-xl font-semibold text-white">{skill.level}%</span>
+                    <div key={skill.name} className="skill-bar-group">
+                      <div className="skill-bar-label">
+                        <span>{skill.name}</span>
+                        <span>{skill.level}%</span>
                       </div>
-                      <div className="w-full h-3 bg-gray-700 rounded-full overflow-hidden">
+                      <div className="skill-bar-track">
                         <div
-                          className="h-full bg-indigo-500 rounded-full transition-all duration-500"
+                          className="skill-bar-fill"
                           style={{ width: `${skill.level}%` }}
                         ></div>
                       </div>
                     </div>
                   ))
                 ) : (
-                  <div className="flex items-center justify-center h-full text-gray-500">
-                    <p className="text-lg">No skills data available for this category</p>
+                  <div className="empty-state">
+                    <p>No skills data available for this category</p>
                   </div>
                 )}
               </div>
             ) : (
-              <div className="flex items-center justify-center h-full text-gray-500">
-                <p className="text-lg">Select a category to view skills</p>
+              <div className="empty-state">
+                <p>Select a category to view skills</p>
               </div>
             )}
           </div>
