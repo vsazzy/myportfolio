@@ -39,12 +39,12 @@ const projects = [
     live: "#",
   },
   {
-    title: "JudgeMe AI",
+    title: "Customer Churn MLOps Pipeline",
     description:
-      "An AI-powered app that roasts, analyzes, and improves your bio, resume, or profile using persona-based prompt engineering for zero-shot personality analysis.",
-    tech: ["AI", "Prompt Engineering", "Streamlit", "Product Design"],
-    github: "https://judgemeai.streamlit.app/",
-    live: "https://judgemeai.streamlit.app/",
+      "An end-to-end MLOps pipeline that predicts telecom customer churn with reproducible data workflows, experiment tracking, automated quality gates, and containerized model serving.",
+    tech: ["Python", "Scikit-learn", "DVC", "MLflow", "FastAPI", "Docker"],
+    github: "https://github.com/vsazzy/customer-churn-MLOps",
+    live: "https://github.com/vsazzy/customer-churn-MLOps",
   },
   {
     title: "nxtMate",
