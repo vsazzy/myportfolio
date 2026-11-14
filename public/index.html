@@ -4,12 +4,30 @@
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/fav.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Portfolio website" />
-    <title>Yash - Dev Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#050507" media="(prefers-color-scheme: dark)" />
+    <meta
+      name="description"
+      content="Yash Verma is an applied AI engineer focused on inference: agentic RAG on local models, vision models at the edge, and the serving and measurement work around them."
+    />
+    <meta property="og:title" content="Yash Verma · Applied AI Engineer" />
+    <meta
+      property="og:description"
+      content="Applied AI engineer focused on inference. LLM applications, vision at the edge, model serving."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>Yash Verma · Applied AI Engineer</title>
+    <script>
+      // Apply a saved theme before first paint so the page does not flash.
+      try {
+        var t = localStorage.getItem("theme");
+        if (t) document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    </script>
   </head>
   <body>
+    <noscript>This site needs JavaScript to run.</noscript>
     <div id="root"></div>
   </body>
 </html>
